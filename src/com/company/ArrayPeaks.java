@@ -15,6 +15,7 @@ public class ArrayPeaks {
             int lengthArray = scanner.nextInt();
             int numberPeaks = scanner.nextInt();
             int last = 0;
+
             int statValue = 2, sign = 1;
 
             int tempLengthArray = Math.floorMod(lengthArray, 2) == 0 ? lengthArray : lengthArray + 1;
