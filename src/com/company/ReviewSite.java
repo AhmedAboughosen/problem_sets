@@ -15,7 +15,6 @@ public class ReviewSite {
             int upVote = 0;
             for (int j = 0; j < n; j++) {
                 int vote = scanner.nextInt();
-
                 if (vote == 1 || vote == 3) {
                     upVote++;
                 }
