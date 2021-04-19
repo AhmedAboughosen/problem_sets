@@ -22,7 +22,6 @@ public class SpyDetected {
                 if (thirdNum != firstNum) {
                     printedNumber = 3;
                 }
-
             } else {
                 if (thirdNum == firstNum) {
                     printedNumber = 2;
