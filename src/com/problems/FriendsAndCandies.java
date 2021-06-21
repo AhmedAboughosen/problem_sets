@@ -6,7 +6,6 @@ public class FriendsAndCandies {
 
 
     // problem from http://codeforces.com/problemset/problem/1538/B.
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int t = scanner.nextInt();
@@ -21,15 +20,15 @@ public class FriendsAndCandies {
                 sum = sum + arr[j];
             }
 
-            if (sum % n != 0){
+            if (sum % n != 0) {
                 System.out.println("-1");
-            }else {
+            } else {
                 int num = sum / n;
                 int count = 0;
                 for (int j = 0; j < n; j++) {
-                   if(arr[j] > num){
-                       count++;
-                   }
+                    if (arr[j] > num) {
+                        count++;
+                    }
                 }
 
                 System.out.println(count);
