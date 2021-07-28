@@ -24,9 +24,9 @@ public class LeastCommonMultiple {
 
     public static void main(String[] args) {
 
-        int a = 12 , b = 15;
+        int a = 6, b = 8;
 
         //Compute the Least Common Multiple
-        System.out.println((a*b) / EuclideanAlgorithm(a , b));
+        System.out.println((a * b) / EuclideanAlgorithm(a, b));
     }
 }
