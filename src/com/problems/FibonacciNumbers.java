@@ -11,7 +11,6 @@ public class FibonacciNumbers {
     }
 
     public static long computeFibonacciNumbersIterative(int n) {
-
         long sum = 0, A = 0, B = 1;
         for (int i = 3; i <= n; i++) {
             sum = A + B;
@@ -24,6 +23,6 @@ public class FibonacciNumbers {
 
     public static void main(String[] args) {
 
-        System.out.println(computeFibonacciNumbersRecurs(6-1));
+        System.out.println(computeFibonacciNumbersIterative(8));
     }
 }
