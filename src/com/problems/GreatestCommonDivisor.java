@@ -86,7 +86,7 @@ public class GreatestCommonDivisor {
     }
 
     public static void main(String[] args) {
-        System.out.println(computeGreatestCommonDivisor(3918848, 1653264));
+//        System.out.println(computeGreatestCommonDivisor(28851538, 1183019));
     }
 }
 
