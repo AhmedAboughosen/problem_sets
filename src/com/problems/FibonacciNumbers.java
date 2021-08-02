@@ -23,6 +23,6 @@ public class FibonacciNumbers {
 
     public static void main(String[] args) {
 
-        System.out.println(computeFibonacciNumbersIterative(8));
+        System.out.println(computeFibonacciNumbersIterative(1000000000));
     }
 }
