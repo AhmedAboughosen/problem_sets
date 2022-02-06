@@ -96,7 +96,7 @@ public class LargestNumber {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{3, 30, 34, 5, 9};
+        int[] arr = new int[]{23,39,34};
         System.out.println(largestNumber(arr));
     }
 
