@@ -42,15 +42,14 @@ public class MinMaxSwap {
                         upperBound = Integer.max(arraySecond[j], upperBound);
                         continue;
                     }
-                    upperBound = Integer.max(min, upperBound);
                 } else {
                     if (secondIndex == j) {
                         upperBound = Integer.max(arrayFirst[j], upperBound);
                         continue;
                     }
-                    upperBound = Integer.max(min, upperBound);
-
                 }
+                upperBound = Integer.max(min, upperBound);
+
 
             }
 
