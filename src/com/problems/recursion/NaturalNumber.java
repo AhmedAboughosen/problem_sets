@@ -9,11 +9,11 @@ public class NaturalNumber {
     }
 
 
-    public static int sumNaturalNumber(int n){
+    private static int sumNaturalNumber(int n){
 
         if ( n == 1 ) return  1;
 
 
-        return  sumNaturalNumber( n - 1 ) + n;
+        return  n +  sumNaturalNumber( n - 1 );
     }
 }
