@@ -5,12 +5,13 @@ public class FactorialNumber {
     public static void main(String[] args) {
 
 
-        System.out.println(sumFactorialNumber(4));
+        System.out.println(sumFactorialNumber(0));
     }
 
 
     private static int sumFactorialNumber(int n){
 
+        if (n <= -1 ) return 0;
         if ( n == 1 ) return  1;
 
 
