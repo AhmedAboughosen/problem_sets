@@ -3,8 +3,6 @@ package com.problems;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class OddSwapSort {
@@ -70,7 +68,6 @@ public class OddSwapSort {
             int n = scanner.nextInt();
             int[] arr = new int[n];
             arr[0] = scanner.nextInt();
-
 
 
             boolean isSorted = true;
