@@ -1,4 +1,4 @@
-package com.problems;
+package src.com.problems;
 
 import java.util.HashMap;
 import java.util.Scanner;
