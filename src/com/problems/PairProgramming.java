@@ -1,11 +1,12 @@
-package com.problems;
+package src.com.problems;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class PairProgramming {
 
+    //problem from https://codeforces.com/problemset/problem/1512/C
 
     public static void main(String[] args) {
 
@@ -15,39 +16,49 @@ public class PairProgramming {
         int t = scanner.nextInt();
 
         for (int i = 0; i < t; i++) {
-            int k = scanner.nextInt(), n = scanner.nextInt(), m = scanner.nextInt(), numberOfZeros = 0, maxValue = Integer.MIN_VALUE;
-            int[] list = new int[n + m];
-            ArrayList<Integer> listOfCanEditable = new ArrayList<>();
-            ArrayList<Integer> listOfAdded = new ArrayList<>();
+            int k = scanner.nextInt(), n = scanner.nextInt(), m = scanner.nextInt();
+            boolean isBreaking = true;
 
-            for (int j = 0; j < list.length; j++) {
-                list[j] = scanner.nextInt();
-                if (list[j] == 0) ++numberOfZeros;
-                if (list[j] <= k && list[j] != 0) listOfCanEditable.add(list[j]);
-                if (list[j] > k && list[j] != 0) listOfAdded.add(list[j]);
-                maxValue = Math.max(list[j], maxValue);
+            List<Integer> newList = new ArrayList<>();
+            List<Integer> monocarp = new ArrayList<>();
+            List<Integer> polycarp = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                monocarp.add(scanner.nextInt());
             }
 
-            if ((k + numberOfZeros) < maxValue) {
-                System.out.println(-1);
-                continue;
+            for (int j = 0; j < m; j++) {
+                polycarp.add(scanner.nextInt());
             }
 
-            Collections.sort(listOfAdded);
-
-            for (int j = 0; j < listOfCanEditable.size(); j++) {
-                System.out.print(listOfCanEditable.get(j) + " ");
-            }
-
-            for (int j = 0; j < listOfAdded.size(); j++) {
-                for (int l = 0; l < listOfAdded.get(j) - k; l++) {
-                    System.out.print(0 + " ");
+            int pos1 = 0, pos2 = 0;
+            while (pos1 != n || pos2 != m) {
+                if (pos1 != n && monocarp.get(pos1) == 0) {
+                    newList.add(0);
+                    k++;
+                    pos1++;
+                } else if (pos2 != m && polycarp.get(pos2) == 0) {
+                    newList.add(0);
+                    k++;
+                    pos2++;
+                } else if (pos1 != n && monocarp.get(pos1) <= k) {
+                    newList.add(monocarp.get(pos1++));
+                } else if (pos2 != m && polycarp.get(pos2) <= k) {
+                    newList.add(polycarp.get(pos2++));
+                } else {
+                    System.out.println("-1");
+                    isBreaking = false;
+                    break;
                 }
-                System.out.print(listOfAdded.get(j) + " ");
-                k += listOfAdded.get(j) - k;
             }
+
+
+            if (isBreaking)
+                for (int j = 0; j < newList.size(); j++) {
+                    System.out.print(newList.get(j) + " ");
+                }
             System.out.println();
 
         }
     }
 }
+
