@@ -1,177 +1,176 @@
-package com.problems;
+package src.com.problems;
 
 import java.util.Scanner;
 
 public class A_BPalindrome {
 
+    static StringBuffer arrString;
+    static int numZ = 0;
+    static int numO = 0;
+    static int numQ = 0;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int t = scanner.nextInt();
-        outerLoop:
+
         for (int i = 0; i < t; i++) {
             int a = scanner.nextInt(), b = scanner.nextInt();
             String str = scanner.next();
-            char arrString[] = str.toCharArray();
-            for (int j = 0; j < str.length(); j++) {
-                int k = str.length() - j - 1;
-                if (arrString[i] != '?') {
-                    if (arrString[k] == '?') {
-                        arrString[k] = arrString[i];
-                    } else if (arrString[i] != arrString[k]) {
-                        System.out.println(-1);
-                        continue outerLoop;
-                    }
+            arrString = new StringBuffer(str);
+
+
+            boolean isBreaking = false;
+
+            numZ = 0;
+            numO = 0;
+            numQ = 0;
+
+            for (int j = 0; j < arrString.length(); j++) {
+                if (arrString.charAt(j) == '0') ++numZ;
+                else if (arrString.charAt(j) == '1') ++numO;
+                else ++numQ;
+            }
+
+
+            numZ = a - numZ;
+            numO = b - numO;
+            int halfArrLen = ((a + b) + 1) / 2;
+            int current;
+
+            for (current = 0; current < halfArrLen; current++) {
+                int last = arrString.length() - current - 1;
+
+                if (!update(current, last)) {
+                    isBreaking = true;
+                    break;
+                }
+
+                if (!update(last, current)) {
+                    isBreaking = true;
+                    break;
                 }
             }
 
-            for (int j = 0; j < arrString.length; j++) {
-                System.out.print(arrString[j]);
+            if (isBreaking) {
+                System.out.println("-1");
+                continue;
             }
 
-//            int[] counting = getNumberOfOneAndZero(str);
-//            int zeros = counting[1], ones = counting[0], question = counting[2];
-//
-//            if (question == 0) {
-//                if (checkIfStringIsPalindrome(str)) {
-//                    if (zeros == a && ones == b) {
-//                        printString(str);
-//                        continue;
-//                    }
-//                }
-//                System.out.println(-1);
-//                continue;
-//            }
-//
-//
-//            int remainingZeros = (a - zeros);
-//            int remainingOnes = (b - ones);
-//
-//
-//            if (remainingZeros < 0 || remainingOnes < 0) {
-//                System.out.println(-1);
-//                continue;
-//            }
-//
-//            char arrString[] = str.toCharArray();
-//            int firstIndex = 0, lastIndex = str.length() - 1;
-//
-//            while (firstIndex < lastIndex) {
-//
-//                if (arrString[firstIndex] == '1') {
-//                    if (arrString[lastIndex] == '0') {
-//                        System.out.println(-1);
-//                        continue outerLoop;
-//                    }
-//
-//                    if (arrString[lastIndex] == '?') {
-//                        arrString[lastIndex] = '1';
-//                        remainingOnes--;
-//                    }
-//
-//                    firstIndex++;
-//                    lastIndex--;
-//                    continue;
-//                }
-//
-//                if (arrString[firstIndex] == '0') {
-//                    if (arrString[(lastIndex)] == '1') {
-//                        System.out.println(-1);
-//                        continue outerLoop;
-//                    }
-//
-//                    if (arrString[(lastIndex)] == '?') {
-//                        arrString[lastIndex] = '0';
-//                        remainingZeros--;
-//                    }
-//                    firstIndex++;
-//                    lastIndex--;
-//                    continue;
-//                }
-//
-//                if (arrString[firstIndex] == '?') {
-//                    if (arrString[lastIndex] == '1') {
-//                        arrString[firstIndex] = '1';
-//                        remainingOnes--;
-//                    }
-//
-//                    if (arrString[(lastIndex)] == '0') {
-//                        arrString[firstIndex] = '0';
-//                        remainingZeros--;
-//                    }
-//
-//                    if (arrString[lastIndex] == '?') {
-//
-//                        if (remainingZeros >= remainingOnes) {
-//                            arrString[firstIndex] = '0';
-//                            arrString[lastIndex] = '0';
-//                            remainingZeros -= 2;
-//                        } else {
-//                            arrString[firstIndex] = '1';
-//                            arrString[lastIndex] = '1';
-//                            remainingOnes -= 2;
-//                        }
-//                    }
-//                    firstIndex++;
-//                    lastIndex--;
-//                }
-//
-//            }
-//
-//            if (firstIndex == lastIndex) {
-//                if (arrString[firstIndex] == '?') {
-//                    if (remainingZeros >= remainingOnes) {
-//                        arrString[firstIndex] = '0';
-//                        remainingZeros--;
-//                    } else {
-//                        arrString[firstIndex] = '1';
-//                        remainingOnes--;
-//                    }
-//                }
-//            }
-//
-//            if (remainingZeros != 0 || remainingOnes != 0) {
-//                System.out.println(-1);
-//                continue;
-//            }
-//
-//            for (int j = 0; j < arrString.length; j++) {
-//                System.out.print(arrString[j]);
-//            }
-//            System.out.println();
+            for (current = 0; current < halfArrLen; current++) {
+
+                int last = arrString.length() - current - 1;
+
+                if (current == last) {
+                    if (arrString.charAt(current) == '?') {
+                        if (numO >= 1) {
+                            arrString.setCharAt(current, '1');
+                            --numO;
+                            continue;
+                        }
+
+                        if (numZ >= 1) {
+                            arrString.setCharAt(current, '0');
+                            --numZ;
+                            continue;
+                        }
+
+                        isBreaking = true;
+                        break;
+                    }
+                    continue;
+                }
+
+                if (arrString.charAt(current) == '?' && arrString.charAt(last) == '?') {
+
+                    if (numZ >= 2) {
+                        arrString.setCharAt(current, '0');
+                        arrString.setCharAt(last, '0');
+                        numZ -= 2;
+                        continue;
+                    }
+
+                    if (numO >= 2) {
+                        arrString.setCharAt(current, '1');
+                        arrString.setCharAt(last, '1');
+                        numO -= 2;
+                        continue;
+                    }
+
+                    isBreaking = true;
+                    break;
+                }
+
+            }
+
+
+            if (isBreaking) {
+                System.out.println("-1");
+                continue;
+            }
+
+
+            if (!isPalindrome(arrString.toString())) {
+                System.out.println("-1");
+            } else {
+                numZ = 0;
+                numO = 0;
+                for (int j = 0; j < arrString.length(); j++) {
+                    if (arrString.charAt(j) == '0') ++numZ;
+                    else if (arrString.charAt(j) == '1') ++numO;
+                }
+
+                if (numZ == a && numO == b) {
+                    System.out.println(arrString);
+                    continue;
+                }
+                System.out.println("-1");
+            }
+
         }
     }
 
-    static void printString(String str) {
-        for (int j = 0; j < str.length(); j++) {
-            System.out.print(str.charAt(j));
-        }
-        System.out.println();
-    }
+    static boolean update(int current, int last) {
 
-    static boolean checkIfStringIsPalindrome(String str) {
-        int firstIndex = 0, lastIndex = str.length() - 1;
-        while (firstIndex < lastIndex) {
-            if (str.charAt(firstIndex) != str.charAt(lastIndex)) {
-                return false;
+        if (arrString.charAt(current) == '?') {
+            if (arrString.charAt(last) == '1') {
+                arrString.setCharAt(current, '1');
+                if (numO <= 0) return false;
+                --numO;
             }
-            firstIndex++;
-            lastIndex--;
-        }
 
+            if (arrString.charAt(last) == '0') {
+                arrString.setCharAt(current, '0');
+                if (numZ <= 0) return false;
+
+                --numZ;
+            }
+        }
 
         return true;
     }
 
-    static int[] getNumberOfOneAndZero(String str) {
-        int numberOfOnes = 0, numberOfZeros = 0, numberOfQuestion = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '0') ++numberOfZeros;
-            if (str.charAt(i) == '1') ++numberOfOnes;
-            if (str.charAt(i) == '?') ++numberOfQuestion;
+    static boolean isPalindrome(String str) {
+
+        // Pointers pointing to the beginning
+        // and the end of the string
+        int i = 0, j = str.length() - 1;
+
+        // While there are characters to compare
+        while (i < j) {
+
+            // If there is a mismatch
+            if (str.charAt(i) != str.charAt(j))
+                return false;
+
+            // Increment first pointer and
+            // decrement the other
+            i++;
+            j--;
         }
 
-
-        return new int[]{numberOfOnes, numberOfZeros, numberOfQuestion};
+        // Given string is a palindrome
+        return true;
     }
+
 
 }

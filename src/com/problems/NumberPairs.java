@@ -1,164 +1,89 @@
-package com.problems;
+package src.com.problems;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class NumberPairs {
 
-
-
-    private static class FastScanner {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer("");
-        String next() {
-            while (!st.hasMoreTokens())
-                try {
-                    st = new StringTokenizer(br.readLine());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            return st.nextToken();
-        }
-
-        boolean hasNext() {
-            return st.hasMoreTokens();
-        }
-
-        char[] readCharArray(int n) {
-            char[] arr = new char[n];
-            try {
-                br.read(arr);
-                br.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return arr;
-        }
-
-        int nextInt() {
-            return Integer.parseInt(next());
-        }
-
-        int[] readArray(int n) {
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) a[i] = nextInt();
-            return a;
-        }
-
-        long[] readLongArray(int n) {
-            long[] a = new long[n];
-            for (int i = 0; i < n; i++) a[i] = nextLong();
-            return a;
-        }
-
-        long nextLong() {
-            return Long.parseLong(next());
-        }
-    }
+    private static Scanner sc = new Scanner(System.in);
 
 
     public static void main(String[] args) {
 
-        FastScanner sc = new FastScanner();
-        PrintWriter out = new PrintWriter(System.out);
 
         int t = sc.nextInt();
 
-        for (int i = 0; i < t; i++) {
-
-            int n = sc.nextInt(), l = sc.nextInt(), r = sc.nextInt();
-
-            int arr[] = new int[n];
-            for (int j = 0; j < n; j++) {
-                arr[j] = sc.nextInt();
-            }
-
-
-            Arrays.sort(arr);
-            long count = 0;
-            for (int j = arr.length - 1; j >= 0; j--) {
-                int[] indexes = find(arr, 0, j - 1, arr[j], l, r);
-                if (indexes[0] != -1 && indexes[1] != -1) {
-                    count = count + ((indexes[0] - indexes[1]) + 1);
-                }
-            }
-            out.println(count);
-
-//            System.out.println(count);
+        while (t-- > 0) {
+            solve();
         }
-        out.flush();
-        out.close();
+
     }
 
 
-    public static int[] find(int arr[], int first, int last, int key, int l, int r) {
-        int mid = (first + last) / 2;
+    private static void solve() {
+        int n = sc.nextInt(), l = sc.nextInt(), r = sc.nextInt();
 
-        while (first <= last) {
-            if ((arr[mid] + key) >= l && (arr[mid] + key) <= r) {
-                break;
-            } else {
-                if ((arr[mid] + key) < r) {
-                    first = mid + 1;
-                } else {
-                    last = mid - 1;
-                }
-            }
+        Integer arr[] = new Integer[n];
 
-            mid = (first + last) / 2;
-        }
-
-        int max = findMax(arr, mid, last, key, l, r);
-        int min = findMin(arr, first, mid, key, l, r);
-
-        return new int[]{max, min};
-    }
-
-    public static int findMax(int arr[], int first, int last, int key, int l, int r) {
-        int mid = (first + last) / 2;
-        int lastMid = -1;
-
-        while (first <= last) {
-            if ((arr[mid] + key) >= l && (arr[mid] + key) <= r) {
-                first = mid + 1;
-                lastMid = mid;
-            } else {
-                if ((arr[mid] + key) < r) {
-                    first = mid + 1;
-                } else {
-                    last = mid - 1;
-                }
-            }
-
-            mid = (first + last) / 2;
+        for (int j = 0; j < n; j++) {
+            arr[j] = sc.nextInt();
         }
 
 
-        return lastMid;
+        Arrays.sort(arr);
+        long count = 0;
+        for (int j = 0; j < arr.length; j++) {
+            if (arr[j] > r) continue;
+
+            int[] indexes = find(arr, j + 1, arr.length - 1, arr[j], l, r);
+            if (indexes[1] == -1 || indexes[0] == -1 || (indexes[1] - indexes[0]) <= -1) continue;
+            count = count + ((indexes[1] - indexes[0]) + 1);
+        }
+
+
+        System.out.println(count);
     }
 
-    public static int findMin(int arr[], int first, int last, int key, int l, int r) {
+    public static int[] find(Integer arr[], int first, int last, int key, int l, int r) {
 
-        int mid = (first + last) / 2;
-        int firstMid = -1;
+        int firstMid = -1, secondMid = -1;
+        int firstIndex = first, lastIndex = last;
+        boolean isGreaterOrEqual = false, isLessOrEqual = false;
         while (first <= last) {
-            if ((arr[mid] + key) >= l && (arr[mid] + key) <= r) {
+            int mid = (first + last) / 2;
+            if ((arr[mid] + key) >= l) {
                 last = mid - 1;
                 firstMid = mid;
-            } else {
-                if ((arr[mid] + key) < r) {
-                    first = mid + 1;
-                } else {
-                    last = mid - 1;
-                }
+                isGreaterOrEqual = true;
+                continue;
+            }
+            first = mid + 1;
+        }
+
+
+        //1 1 3 4 4
+        if (!isGreaterOrEqual) return new int[]{-1, -1};
+
+
+        first = firstIndex;
+        last = lastIndex;
+
+        while (first <= last) {
+            int mid = (first + last) / 2;
+
+            if ((arr[mid] + key) <= r) {
+                first = mid + 1;
+                secondMid = mid;
+                isLessOrEqual = true;
+                continue;
             }
 
-            mid = (first + last) / 2;
+            last = mid - 1;
         }
-        return firstMid;
+
+        if (!isLessOrEqual) return new int[]{-1, -1};
+
+
+        return new int[]{firstMid, secondMid};
     }
 }
