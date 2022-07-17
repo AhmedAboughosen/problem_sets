@@ -17,53 +17,59 @@ public class OneAway {
 
         //removed
         if (originalStr.length() > editedStr.length()) {
-            boolean firstCheck = false;
-            boolean isRepeated = false;
 
-            for (int i = 0; i < originalStr.length(); i++) {
+            boolean isMissing = false;
 
-                char chFromOriginal = originalStr.charAt(i);
-                char chFromEdited = currentIndex < editedStr.length() ? editedStr.charAt(currentIndex) : '1';
-                if (chFromOriginal == chFromEdited) {
-                    ++currentIndex;
+            if (editedStr.length() + 1 != originalStr.length()) {
+                System.out.println(false);
+                return;
+            }
+
+
+            for (int i = 0; i < editedStr.length(); i++) {
+
+                if (editedStr.charAt(i) == originalStr.charAt(currentIndex)) {
+                    currentIndex++;
                     continue;
                 }
 
-                if (firstCheck) {
-                    isRepeated = true;
-                    break;
+                if(isMissing){
+                    System.out.println(false);
+                    return;
                 }
 
-                firstCheck = true;
+                isMissing = true;
+                currentIndex++;
+                --i;
+
             }
-
-            System.out.println(!isRepeated);
-
+            System.out.println(true);
             return;
+
         }
 
         if (originalStr.length() == editedStr.length()) {
             int numberOfChanges = 0;
 
-            for (int i = 0; i < originalStr.length(); i++) {
+            for (int i = 0; i < originalStr.length() && numberOfChanges <= 1; i++) {
 
                 char chFromOriginal = originalStr.charAt(i);
                 char chFromEdited = editedStr.charAt(i);
                 if (chFromOriginal != chFromEdited) {
                     ++numberOfChanges;
                 }
-
-                if (numberOfChanges >= 2) {
-                    System.out.println(false);
-                    return;
-                }
             }
 
-            System.out.println(true);
+            System.out.println(numberOfChanges < 2);
 
             return;
         }
 
+
+        if (originalStr.length()+1 != editedStr.length()){
+            System.out.println(false);
+            return;
+        }
 
         for (int i = 0; i < originalStr.length(); i++) {
 
