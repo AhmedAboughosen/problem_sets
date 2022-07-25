@@ -28,7 +28,7 @@ public class BST {
     //recursive delete function
     Node delete_Recursive(Node root, int key) {
         //tree is empty
-        if (root == null) return root;
+        if (root == null) return null;
 
         //traverse the tree
         if (key < root.key)     //traverse left subtree
