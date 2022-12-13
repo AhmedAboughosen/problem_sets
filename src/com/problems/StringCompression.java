@@ -15,7 +15,7 @@ public class StringCompression {
 
         String str = scanner.nextLine();
 
-        String newStr = "";
+        StringBuilder newStr = new StringBuilder();
 
         char first = str.charAt(0);
         int count = 0;
@@ -27,11 +27,11 @@ public class StringCompression {
 
                 continue;
             }
-            newStr+= first + "" + count;
+            newStr.append(first).append(count);
             first = str.charAt(i);
             count = 1;
         }
-        newStr+= first + "" + count;
+        newStr.append(first).append(count);
         System.out.println(newStr);
     }
 }
