@@ -15,18 +15,10 @@ public class RotateImage {
 
     public static void rotate(int[][] matrix, int x, int y) {
 
-        //0 , n-1
-        //0,0
-        //0,
         int[] firstPath = new int[]{y, x};
         int[] secondPath = new int[]{x, x};
         int[] thirdPath = new int[]{x, y};
         int[] fourthPath = new int[]{y, y};
-
-//        int[] firstPath = new int[]{matrix.length -1,0};
-//        int[] secondPath = new int[]{0, 0};
-//        int[] thirdPath = new int[]{0, matrix.length -1};
-//        int[] fourthPath = new int[]{matrix.length -1, matrix.length -1};
 
 
         if(y <= 1){
@@ -41,7 +33,6 @@ public class RotateImage {
             }
             return;
         }
-//        int size = y == 2 ? 1 : y ;
         int size = y - x ;
         for (int i = 0; i < size; i++) {
 
@@ -63,34 +54,5 @@ public class RotateImage {
 
 
         rotate(matrix, x + 1, y - 1);
-
-//        return;
-
-//
-//        int first = 0;
-//        int last = matrix.length - 1;
-//
-//        int firstRowIndexingColumn = 0;
-//        int indexingRowLastColumn = last;
-//        int lastRowIndexingColumn = last;
-//        int firstRowIndexingColumn = 0;
-//        int indexingRowLastColumn = last;
-//        int lastRowIndexingColumn = last;
-//        int indexingRowFirstColumn = 0;
-//        int LastRowIndexingColumnZeroStart = 0;
-//
-//        for (int i = 0; i < matrix.length; i++) {
-//
-//            int temp = matrix[firstRowIndexingColumn][last];
-//
-//            matrix[firstRowIndexingColumn][last] = matrix[firstRowIndexingColumn][first];
-//
-//            int temp2 = matrix[lastRowIndexingColumn][last];
-//
-//            matrix[lastRowIndexingColumn][last] = temp;
-//
-//            int temp3 = matrix[lastRowIndexingColumn][LastRowIndexingColumnZeroStart];
-//
-//        }
     }
 }
