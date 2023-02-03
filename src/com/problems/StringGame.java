@@ -61,86 +61,117 @@ public class StringGame {
     public static void main(String[] args) {
 
 
-        FastScanner fastScanner = new FastScanner();
-
-        String firstStr = fastScanner.next();
-        String secondStr = fastScanner.next();
-
-        int[] arrList = new int[firstStr.length()];
-        HashMap<Integer, Integer> possibilitiesMapList = new HashMap<>();
-        HashMap<Character, List<Integer>> charMap = new HashMap<>();
-
-        int index = secondStr.length() - 1;
-        for (int i = firstStr.length() - 1; i >= 0; i--) {
-
-            if ((index) == 0 && secondStr.charAt(index) == firstStr.charAt(i)) {
-                possibilitiesMapList.put(i + 1, i + 1);
-            } else if (secondStr.charAt(index) == firstStr.charAt(i)) {
-                --index;
-            }
+        FastScanner in = new FastScanner();
+        String s1 = in.next();
+        String s2 = in.next();
+        int num_step = 0, count = 0;
+        char chararr[] = s1.toCharArray();
+        int arr[] = new int[s1.length()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = in.nextInt();
         }
 
-        for (int i = 0; i < arrList.length; i++) {
-            arrList[i] = fastScanner.nextInt();
-        }
+        for (int i = 0; i < chararr.length; i++) {
 
-        int neededIndex = 0;
+            int index = 0;
+            num_step = 0;
+            chararr[arr[i]-1] = ' ';
 
-        for (int i = arrList.length - 1; i >= 0; i--) {
-
-            if (possibilitiesMapList.containsKey(arrList[i])) {
-
-                int after = arrList[i];
-                int val = -1;
-
-                for (int j = 1; j < secondStr.length(); j++) {
-
-                    if (charMap.containsKey(secondStr.charAt(j))) {
-                        Collections.sort(charMap.get(secondStr.charAt(j)));
-                         val = binarySearch(charMap.get(secondStr.charAt(j)), 0, charMap.get(secondStr.charAt(j)).size(), after,-1);
-
-                        if (val == -1) {
-                            break;
-                        }
-                        after = val;
+            for (int j = 0; j < chararr.length; j++) {
+                if (s2.charAt(index) == chararr[j]) {
+                    num_step++;
+                    ++index;
+                    if (num_step == s2.length()) {
+                        ++count;
+                        break;
                     }
-
                 }
-
-                if(val != -1){
-                    neededIndex = i;
-                    break;
-                }
-
-                if (charMap.containsKey(firstStr.charAt(arrList[i] - 1))) {
-                    List<Integer> list = charMap.get(firstStr.charAt(arrList[i] - 1));
-                    list.add(arrList[i]);
-                    charMap.put(firstStr.charAt(arrList[i] - 1), list);
-                    continue;
-                }
-
-                List<Integer> list = new ArrayList<>();
-                list.add(arrList[i]);
-
-                charMap.put(firstStr.charAt(arrList[i] - 1), list);
-                continue;
             }
 
-
-            if (charMap.containsKey(firstStr.charAt(arrList[i] - 1))) {
-                List<Integer> list = charMap.get(firstStr.charAt(arrList[i] - 1));
-                list.add(arrList[i]);
-                charMap.put(firstStr.charAt(arrList[i] - 1), list);
-                continue;
-            }
-
-            List<Integer> list = new ArrayList<>();
-            list.add(arrList[i]);
-
-            charMap.put(firstStr.charAt(arrList[i] - 1), list);
         }
 
-        System.out.println(neededIndex);
+        System.out.println(count);
+//        String firstStr = fastScanner.next();
+//        String secondStr = fastScanner.next();
+//
+//        int[] arrList = new int[firstStr.length()];
+//
+//
+//
+//        HashMap<Integer, Integer> possibilitiesMapList = new HashMap<>();
+//        HashMap<Character, List<Integer>> charMap = new HashMap<>();
+//
+//        int index = secondStr.length() - 1;
+//        for (int i = firstStr.length() - 1; i >= 0; i--) {
+//
+//            if ((index) == 0 && secondStr.charAt(index) == firstStr.charAt(i)) {
+//                possibilitiesMapList.put(i + 1, i + 1);
+//            } else if (secondStr.charAt(index) == firstStr.charAt(i)) {
+//                --index;
+//            }
+//        }
+//
+//        for (int i = 0; i < arrList.length; i++) {
+//            arrList[i] = fastScanner.nextInt();
+//        }
+//
+//        int neededIndex = 0;
+//
+//        for (int i = arrList.length - 1; i >= 0; i--) {
+//
+//            if (possibilitiesMapList.containsKey(arrList[i])) {
+//
+//                int after = arrList[i];
+//                int val = -1;
+//
+//                for (int j = 1; j < secondStr.length(); j++) {
+//
+//                    if (charMap.containsKey(secondStr.charAt(j))) {
+//                        Collections.sort(charMap.get(secondStr.charAt(j)));
+//                         val = binarySearch(charMap.get(secondStr.charAt(j)), 0, charMap.get(secondStr.charAt(j)).size(), after,-1);
+//
+//                        if (val == -1) {
+//                            break;
+//                        }
+//                        after = val;
+//                    }
+//
+//                }
+//
+//                if(val != -1){
+//                    neededIndex = i;
+//                    break;
+//                }
+//
+//                if (charMap.containsKey(firstStr.charAt(arrList[i] - 1))) {
+//                    List<Integer> list = charMap.get(firstStr.charAt(arrList[i] - 1));
+//                    list.add(arrList[i]);
+//                    charMap.put(firstStr.charAt(arrList[i] - 1), list);
+//                    continue;
+//                }
+//
+//                List<Integer> list = new ArrayList<>();
+//                list.add(arrList[i]);
+//
+//                charMap.put(firstStr.charAt(arrList[i] - 1), list);
+//                continue;
+//            }
+//
+//
+//            if (charMap.containsKey(firstStr.charAt(arrList[i] - 1))) {
+//                List<Integer> list = charMap.get(firstStr.charAt(arrList[i] - 1));
+//                list.add(arrList[i]);
+//                charMap.put(firstStr.charAt(arrList[i] - 1), list);
+//                continue;
+//            }
+//
+//            List<Integer> list = new ArrayList<>();
+//            list.add(arrList[i]);
+//
+//            charMap.put(firstStr.charAt(arrList[i] - 1), list);
+//        }
+//
+//        System.out.println(neededIndex);
 
     }
 
