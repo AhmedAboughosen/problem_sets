@@ -104,6 +104,9 @@ public class AddTwoNumbers {
             l2 = l2.next;
         }
 
+        if(remainingVal >= 1){
+            rootNode.val = remainingVal;
+        }
 
         return headNode;
 
