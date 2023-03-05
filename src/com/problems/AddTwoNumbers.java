@@ -25,7 +25,8 @@ public class AddTwoNumbers {
 
     public static void main(String[] args) {
 
-      var node =  addTwoNumbers(new ListNode(2 , new ListNode( 4 , new ListNode(3))), new ListNode(5 , new ListNode( 6 , new ListNode(4))));
+      var node =  addTwoNumbers(new ListNode(9 , new ListNode( 9 , new ListNode(9 , new ListNode(9 , new ListNode(9 , new ListNode(9 , new ListNode( 9 ))))))),
+              new ListNode(9 , new ListNode( 9 , new ListNode(9, new ListNode(9)))));
 
         printList(node);
     }
@@ -66,7 +67,7 @@ public class AddTwoNumbers {
 
             rootNode.val = Math.floorMod((v1 + v2 + remainingVal), 10);
             rootNode.next = new ListNode();
-            remainingVal = ((v1 + v2) / 10);
+            remainingVal = ((v1 + v2 + remainingVal) / 10);
 
             rootNode = rootNode.next;
 
@@ -74,6 +75,33 @@ public class AddTwoNumbers {
             l1 = l1.next;
             l2 = l2.next;
 
+        }
+
+        while (l1 != null){
+            int v1 = l1.val;
+
+            rootNode.val = Math.floorMod((v1  + remainingVal), 10);
+            rootNode.next = new ListNode();
+            remainingVal = ((v1 + remainingVal) / 10);
+
+            rootNode = rootNode.next;
+
+
+            l1 = l1.next;
+        }
+
+
+        while (l2 != null){
+            int v1 = l2.val;
+
+            rootNode.val = Math.floorMod((v1  + remainingVal), 10);
+            rootNode.next = new ListNode();
+            remainingVal = ((v1 + remainingVal) / 10);
+
+            rootNode = rootNode.next;
+
+
+            l2 = l2.next;
         }
 
 
