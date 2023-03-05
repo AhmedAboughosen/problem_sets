@@ -51,13 +51,6 @@ public class AddTwoNumbers {
         ListNode rootNode = new ListNode();
         ListNode headNode = rootNode;
 
-//        rootNode.val = Math.floorMod((l1.val + l2.val), 10);
-//
-//        l1 = l1.next;
-//        l2 = l2.next;
-//
-//        ListNode nextNode = new ListNode();
-//        rootNode.next = nextNode;
 
         int remainingVal = 0;
 
