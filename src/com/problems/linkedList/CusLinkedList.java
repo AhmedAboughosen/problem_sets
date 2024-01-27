@@ -3,22 +3,22 @@ package src.com.problems.linkedList;
 public class CusLinkedList {
 }
 
-class Node {
+class Node<T> {
     // reference to the next node in the chain, or null if there isn't one.
     Node next;
 
     // data carried by this node. could be of any type you need.
-    Object data;
+    T data;
 
     // Node constructor
-    public Node(Object dataValue) {
+    public Node(T dataValue) {
         next = null;
         data = dataValue;
     }
 
     // another Node constructor if we want to specify the node to point to.
     @SuppressWarnings("unused")
-    public Node(Object dataValue, Node nextValue) {
+    public Node(T dataValue, Node nextValue) {
         next = nextValue;
         data = dataValue;
     }
@@ -29,7 +29,7 @@ class Node {
     }
 
     @SuppressWarnings("unused")
-    public void setData(Object dataValue) {
+    public void setData(T dataValue) {
         data = dataValue;
     }
 
